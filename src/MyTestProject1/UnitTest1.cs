@@ -6,14 +6,19 @@ using FlaUI.Core.AutomationElements;
 using System.Threading;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Input;
-
+using NUnit.Framework;
 
 namespace MyTestProject1
 {
     [TestClass]
     public class UnitTest1
     {
-
+        [SetUp]
+        public void BaseSetUp()
+        {
+            //some code
+            int a = 1;
+        }
 
         [TestMethod]
         public void TestControls()
