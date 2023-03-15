@@ -7,7 +7,6 @@ using System.Threading;
 using FlaUI.Core.Conditions;
 using FlaUI.Core.Input;
 
-//using NUnit.Framework;
 
 namespace MyTestProject1
 {
@@ -82,11 +81,17 @@ namespace MyTestProject1
             //switch tab
             mainWindow.FindFirstDescendant(cf.ByName("More Controls")).Click();
             //selecting date
-            DateTime tomorrow = DateTime.Today.AddDays(2);
+            DateTime today_Plus2 = DateTime.Today.AddDays(2);
+            DateTime today = DateTime.Today;
+            var selectToday = mainWindow.FindFirstDescendant(cf.ByAutomationId("calendar")).AsCalendar();
             var calendar = mainWindow.FindFirstDescendant(cf.ByAutomationId("calendar")).AsCalendar();
-            calendar.SelectDate(tomorrow);
+            calendar.SelectDate(today);
+            calendar.AddToSelection(today_Plus2);
+
+            DateTime[] selectedDates = calendar.SelectedDates;
             Thread.Sleep(2000);
-            Assert.IsNotNull(application);
+            NUnit.Framework.Assert.IsNotNull(application);
+            NUnit.Framework.Assert.That(selectedDates, NUnit.Framework.Has.Length.EqualTo(2));
         }
 
         [TestMethod]
