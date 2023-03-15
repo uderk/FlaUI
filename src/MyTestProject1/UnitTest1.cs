@@ -17,7 +17,7 @@ namespace MyTestProject1
         public void BaseSetUp()
         {
             //some code
-            int a = 3;
+            int a = 2;
         }
 
         [TestMethod]
