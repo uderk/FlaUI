@@ -43,7 +43,7 @@ namespace MyTestProject1
             horizontalSlider.SlideHorizontally(10);
             horizontalSlider.SlideHorizontally(-20);
             Thread.Sleep(5000);
-            Assert.IsNotNull(application);
+            NUnit.Framework.Assert.IsNotNull(application);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace MyTestProject1
 
             mainWindow.FindFirstDescendant(cf.ByName("Popup Toggle 1")).Click();
             var label = mainWindow.FindFirstDescendant(cf.ByName("This is a popup")).AsLabel();
-            Assert.IsNotNull(application);
+            NUnit.Framework.Assert.IsNotNull(application);
             NUnit.Framework.Assert.That(label.Text, NUnit.Framework.Is.EqualTo("This is a popup"));
         }
 
@@ -110,8 +110,27 @@ namespace MyTestProject1
             var calendar = mainWindow.FindFirstByXPath("/Window[2]/Tab/TabItem[3]/Custom/Calendar").AsCalendar();
             calendar.SelectDate(tomorrow);
             Thread.Sleep(2000);
-            Assert.IsNotNull(application);
+            NUnit.Framework.Assert.IsNotNull(application);
             //some change
+        }
+
+        [TestMethod]
+        public void TestCheckBoxes()
+        {
+            var application = FlaUI.Core.Application.Launch(@"C:\Users\venislav.zdravkov\Documents\Projects\FlaUI\FlauiWinForms\FlaUI\src\TestApplications\WpfApplication\bin\WpfApplication.exe");
+            var mainWindow = application.GetMainWindow(new UIA3Automation());
+            ConditionFactory cf = new ConditionFactory(new UIA3PropertyLibrary());
+            mainWindow.FindFirstDescendant(cf.ByName("Complex Controls")).Click();
+
+            var checkbox1 = mainWindow.FindFirstByXPath("//DataItem[1]/Custom[3]/CheckBox").AsCheckBox();
+            var checkbox2 = mainWindow.FindFirstByXPath("//DataItem[2]/Custom[3]/CheckBox").AsCheckBox();
+            checkbox1.DoubleClick();
+            //checkbox2.DoubleClick();
+            Thread.Sleep(2000);
+            NUnit.Framework.Assert.IsNotNull(application);
+            NUnit.Framework.Assert.True(checkbox1.IsChecked);
+            NUnit.Framework.Assert.True(checkbox2.IsChecked);
+
         }
     }
 }
