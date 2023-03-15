@@ -13,10 +13,6 @@ namespace MyTestProject1
     [TestClass]
     public class UnitTest1
     {
-        public void BaseSetUp()
-        { 
-            
-        }
 
 
         [TestMethod]
